@@ -21,6 +21,11 @@ const Login = () => {
                 <Button variant="danger" className='w-25' type="submit">
                     Submit
                 </Button>
+            <div className='d-flex'>
+                <div style={{height: '4px', color: 'red', width: '20px'}} className=''></div>
+                <div>or</div>
+                <div style={{height: '1px', color: 'red'}} className=''></div>
+            </div>
             </Form>
             <Footer></Footer>
         </div>

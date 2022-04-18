@@ -1,21 +1,21 @@
 [
     {
         "_id": "1",
-        "name": "Simple",
+        "name": "Simple-Service",
         "description": "Only Photos of the bride and Groom",
         "image": "../../../images/simple-service.jpg",
         "price": "100$"
     },
     {
         "_id": "2",
-        "name": "Advanced",
+        "name": "Advanced-Service",
         "description": "taken pictures of every moment",
         "image": "../../../images/advanced-service.jpg",
         "price": "200$"
     },
     {
         "_id": "3",
-        "name": "Film",
+        "name": "Film-Service",
         "description": "Taken smooth momentum videos as well as photos",
         "image": "../../../images/film-service.jpg",
         "price": "300$"
