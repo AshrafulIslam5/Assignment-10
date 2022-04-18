@@ -20,7 +20,7 @@ const Header = () => {
     return (
         <Navbar sticky='top' collapseOnSelect expand="lg" bg="light">
             <Container>
-                <Nav.Link className='d-flex flex-column align-items-center'><img className='w-2' src={img} alt='' /><p className='text-danger'><small>Your Wedding PhotoShooter</small></p></Nav.Link>
+                <Nav.Link as={Link} to='/home' className='d-flex flex-column align-items-center'><img className='w-2' src={img} alt='' /></Nav.Link>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav" >
                     <Nav className="ms-auto text-center fw-bold">
@@ -34,8 +34,8 @@ const Header = () => {
                             <>
                                 <button onClick={handleSignOut} className='btn btn-link text-decoration-none'>signOut</button>
                                 <div className='d-flex align-items-center justify-content-center'>
-                                <p className='text-black mt-3'>{user.displayName}</p>
-                                <img style={{width: '40px', height: '40px'}} className='ms-2 rounded-circle' src={user.photoURL} alt="" />
+                                    <p className='text-black mt-3'>{user.displayName}</p>
+                                    <img style={{ width: '40px', height: '40px' }} className='ms-2 rounded-circle' src={user.photoURL} alt="" />
                                 </div>
                             </>
                             :

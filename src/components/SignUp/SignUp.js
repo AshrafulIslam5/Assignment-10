@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
+import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 const SignUp = () => {
     const [name, setName] = useState();
@@ -56,6 +57,7 @@ const SignUp = () => {
                 <Button variant="danger" className='w-25' type="submit">
                     Submit
                 </Button>
+                <SocialLogin></SocialLogin>
             </Form>
             <Footer></Footer>
         </div>

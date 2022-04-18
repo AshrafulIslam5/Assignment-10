@@ -4,6 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 const Login = () => {
     const [email, setEmail] = useState();
@@ -49,14 +50,10 @@ const Login = () => {
                     <Form.Control onBlur={handlePassword} className='border-danger' type="password" placeholder="Password" required />
                 </Form.Group>
                 <p>New To this Website? Then <Link className='text-decoration-none' to='/signup'>SignUp</Link></p>
-                <Button variant="danger" className='w-25' type="submit">
+                <Button variant="danger" type="submit">
                     Submit
                 </Button>
-                <div className='d-flex'>
-                    <div style={{ height: '4px', color: 'red', width: '20px' }} className=''></div>
-                    <div>or</div>
-                    <div style={{ height: '1px', color: 'red' }} className=''></div>
-                </div>
+                <SocialLogin></SocialLogin>
             </Form>
             <Footer></Footer>
         </div>
