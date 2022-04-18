@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Footer from '../Shared/Footer/Footer';
 import { Form, Button } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 
 const SignUp = () => {
@@ -24,9 +24,13 @@ const SignUp = () => {
 
     const [createUserWithEmailAndPassword, user, error] = useCreateUserWithEmailAndPassword(auth);
 
-    const afterSubmit = e => {
+    const [updateProfile] = useUpdateProfile(auth);
+
+    const afterSubmit = async (e) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(email, password)
+        await createUserWithEmailAndPassword(email, password)
+        await updateProfile({ displayName: name });
+
     }
     if (user) {
         navigate('/home');
