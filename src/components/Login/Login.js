@@ -11,7 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState();
     const navigate = useNavigate();
     const location = useLocation()
-    let from = location.state?.from?.pathname || '/'
+    let from = location.state?.from?.pathname || '/';
 
     const handleEmail = e => {
         setEmail(e.target.value);
@@ -27,7 +27,10 @@ const Login = () => {
         error,
     ] = useSignInWithEmailAndPassword(auth);
 
-
+    let errorMsg;
+    if (error) {
+        errorMsg = <p className='text-danger'>{error.message}</p>
+    }
 
     if (user) {
         navigate(from, { replace: true });
@@ -48,6 +51,7 @@ const Login = () => {
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label className='fw-bold'>Password</Form.Label>
                     <Form.Control onBlur={handlePassword} className='border-danger' type="password" placeholder="Password" required />
+                    {errorMsg}
                 </Form.Group>
                 <p>New To this Website? Then <Link className='text-decoration-none' to='/signup'>SignUp</Link></p>
                 <Button variant="danger" type="submit">

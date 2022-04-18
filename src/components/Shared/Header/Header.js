@@ -10,7 +10,6 @@ import './Header.css';
 
 const Header = () => {
     const [user] = useAuthState(auth);
-    console.log(user)
     if (user?.photoURL === null) {
         user.photoURL = profilePhoto;
     }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Footer from '../Shared/Footer/Footer';
 import { Form, Button } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
@@ -10,6 +10,8 @@ const SignUp = () => {
     const [name, setName] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
+    const location = useLocation()
+    let from = location.state?.from?.pathname || '/';
 
     const handleName = e => {
         setName(e.target.value);
@@ -31,10 +33,13 @@ const SignUp = () => {
         e.preventDefault();
         await createUserWithEmailAndPassword(email, password)
         await updateProfile({ displayName: name });
-
+    }
+    let errorMsg;
+    if (error) {
+        errorMsg = <p className='text-danger'>{error.message}</p>
     }
     if (user) {
-        navigate('/home');
+        navigate(from, { replace: true });
     }
     return (
         <div>
@@ -52,6 +57,7 @@ const SignUp = () => {
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label className='fw-bold'>Password</Form.Label>
                     <Form.Control onBlur={handlePassword} className='border-danger' type="password" placeholder="Password" required />
+                    {errorMsg}
                 </Form.Group>
                 <p>Already Have an Account? Then <Link className='text-decoration-none' to='/login'>Login</Link></p>
                 <Button variant="danger" className='w-25' type="submit">
