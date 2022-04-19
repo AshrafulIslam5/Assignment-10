@@ -7,6 +7,7 @@ import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../Shared/Loading/Loading';
 
 const Login = () => {
     const [email, setEmail] = useState();
@@ -30,8 +31,8 @@ const Login = () => {
     ] = useSignInWithEmailAndPassword(auth);
     const [sendPasswordResetEmail, sending, passwordResetError] = useSendPasswordResetEmail(auth);
 
-    if (sending) {
-        return <p>Loading...</p>
+    if (loading ||sending) {
+        return <Loading></Loading>
     }
     let errorMsg;
     if (error) {

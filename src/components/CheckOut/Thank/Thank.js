@@ -1,8 +1,15 @@
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading/Loading';
 
 const Thank = () => {
-    const { name } = useParams()
+    const [user, loading] = useAuthState(auth);
+    if (loading) {
+        return <Loading></Loading>
+    }
+    const name = user.displayName;
     return (
         <div className='text-center mt-5'>
             <h2> Thank You For Booking ! <span className='text-danger'>{name}</span> !</h2>

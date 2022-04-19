@@ -6,8 +6,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import auth from '../../firebase.init';
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 import { useSendEmailVerification } from 'react-firebase-hooks/auth';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Loading from '../Shared/Loading/Loading';
 
 const SignUp = () => {
     const [name, setName] = useState();
@@ -28,7 +27,7 @@ const SignUp = () => {
 
     const navigate = useNavigate();
 
-    const [createUserWithEmailAndPassword, user, error] = useCreateUserWithEmailAndPassword(auth);
+    const [createUserWithEmailAndPassword, user, loading, error] = useCreateUserWithEmailAndPassword(auth);
     const [sendEmailVerification, verificationError] = useSendEmailVerification(auth);
 
     const [updateProfile] = useUpdateProfile(auth);
@@ -37,8 +36,10 @@ const SignUp = () => {
         e.preventDefault();
         await createUserWithEmailAndPassword(email, password);
         await sendEmailVerification();
-        toast('email Sent');
         await updateProfile({ displayName: name });
+    }
+    if (loading) {
+        return <Loading></Loading>
     }
     let errorMsg;
     if (error) {
@@ -75,7 +76,6 @@ const SignUp = () => {
                 <SocialLogin></SocialLogin>
             </Form>
             <Footer></Footer>
-            <ToastContainer></ToastContainer>
         </div>
     );
 };

@@ -5,11 +5,12 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../../firebase.init';
 import img from '../../../images/logo.png';
-import profilePhoto from '../../../images/user.png'
+import profilePhoto from '../../../images/user.png';
+import HeaderLoading from './HeaderLoading/HeaderLoading';
 import './Header.css';
 
 const Header = () => {
-    const [user] = useAuthState(auth);
+    const [user, loading] = useAuthState(auth);
     if (user?.photoURL === null) {
         user.photoURL = profilePhoto;
     }
@@ -28,17 +29,20 @@ const Header = () => {
                         <Nav.Link as={Link} to='about'> About</Nav.Link>
                     </Nav>
                     <Nav className='ms-auto text-center'>
-                        {user
-                            ?
-                            <>
-                                <button onClick={handleSignOut} className='btn btn-link text-decoration-none'>signOut</button>
-                                <div className='d-flex align-items-center justify-content-center'>
-                                    <p className='text-black mt-3'>{user.displayName}</p>
-                                    <img style={{ width: '40px', height: '40px' }} className='ms-2 rounded-circle' src={user.photoURL} alt="" />
-                                </div>
-                            </>
-                            :
-                            <Nav.Link as={Link} to='login'>Login</Nav.Link>}
+                        {
+                            loading ? <HeaderLoading></HeaderLoading>:
+                                user
+                                    ?
+                                    <>
+                                        <button onClick={handleSignOut} className='btn btn-link text-decoration-none'>SignOut</button>
+                                        <div className='d-flex align-items-center justify-content-center'>
+                                            <p className='text-black mt-3'>{user.displayName}</p>
+                                            <img style={{ width: '40px', height: '40px' }} className='ms-2 rounded-circle' src={user.photoURL} alt="" />
+                                        </div>
+                                    </>
+                                    :
+                                    <Nav.Link as={Link} to='login'>Login</Nav.Link>
+                        }
                     </Nav>
                 </Navbar.Collapse>
             </Container>

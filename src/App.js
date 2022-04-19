@@ -25,7 +25,7 @@ function App() {
             <CheckOut></CheckOut>
           </RequireAuth>
         } />
-        <Route path='/thankyou/:name' element={<Thank></Thank>}></Route>
+        <Route path='/thankyou' element={<Thank></Thank>}></Route>
         <Route path='/blogs' element={<Blogs></Blogs>}></Route>
         <Route path='/about' element={<About></About>}></Route>
         <Route path='/login' element={<Login></Login>}></Route>
