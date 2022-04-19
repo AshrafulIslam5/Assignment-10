@@ -8,6 +8,7 @@ const Home = () => {
     return (
         <>
             <Banner></Banner>
+            <h2 className='text-center text-danger font-oswald display-3 mt-4 text-decoration-underline'>Your Wedding PhotoGrapher</h2>
             <Services></Services>
             <Gift></Gift>
             <Footer></Footer>
