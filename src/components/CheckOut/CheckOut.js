@@ -22,7 +22,7 @@ const CheckOut = () => {
                     <Form.Label className='fw-bold'>Address</Form.Label>
                     <Form.Control className='border-danger' type="address" placeholder="Address" required />
                 </Form.Group>
-                <Button variant="danger" className='w-25' type="submit">
+                <Button variant="danger" type="submit">
                     Submit
                 </Button>
             </Form>
