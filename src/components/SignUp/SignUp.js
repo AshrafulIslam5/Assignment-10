@@ -5,6 +5,9 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import SocialLogin from '../Shared/SocialLogin/SocialLogin';
+import { useSendEmailVerification } from 'react-firebase-hooks/auth';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
     const [name, setName] = useState();
@@ -26,16 +29,22 @@ const SignUp = () => {
     const navigate = useNavigate();
 
     const [createUserWithEmailAndPassword, user, error] = useCreateUserWithEmailAndPassword(auth);
+    const [sendEmailVerification, verificationError] = useSendEmailVerification(auth);
 
     const [updateProfile] = useUpdateProfile(auth);
 
     const afterSubmit = async (e) => {
         e.preventDefault();
-        await createUserWithEmailAndPassword(email, password)
+        await createUserWithEmailAndPassword(email, password);
+        await sendEmailVerification();
+        toast('email Sent');
         await updateProfile({ displayName: name });
     }
     let errorMsg;
     if (error) {
+        errorMsg = <p className='text-danger'>{error.message}</p>
+    }
+    if (verificationError) {
         errorMsg = <p className='text-danger'>{error.message}</p>
     }
     if (user) {
@@ -60,12 +69,13 @@ const SignUp = () => {
                     {errorMsg}
                 </Form.Group>
                 <p>Already Have an Account? Then <Link className='text-decoration-none' to='/login'>Login</Link></p>
-                <Button variant="danger" className='w-25' type="submit">
-                    Submit
+                <Button variant="danger" type="submit">
+                    Sign Up
                 </Button>
                 <SocialLogin></SocialLogin>
             </Form>
             <Footer></Footer>
+            <ToastContainer></ToastContainer>
         </div>
     );
 };
